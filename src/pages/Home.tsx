@@ -53,6 +53,9 @@ export function Home(){
 			<Text style={styles.title}>
 				{ greeting }
 			</Text>
+			<Text style={styles.description}>
+				Write a skill in text input then press the button. To delete, press the skill.
+			</Text>
 			<TextInput
 				style={styles.input}
 				placeholder="New skill"
@@ -66,19 +69,23 @@ export function Home(){
 				disabled={!newSkill}
 				onPress={handleAddNewSkill}
 			/>
-			<Text style={[styles.title, { marginVertical: 40 }]}>
-				My Skills   
-			</Text>
-			<FlatList
-				data={mySkills}
-				keyExtractor={item => item.id}
-				renderItem={({ item }) => (
-					<SkillCard 
-						skill={item.name} 
-						onPress={() => handleRemoveSkill(item.id)}
+			{mySkills.length > 0 && (
+				<>
+					<Text style={[styles.title, {marginVertical: 40}]}>
+						My Skills   
+					</Text>
+					<FlatList
+						data={mySkills}
+						keyExtractor={item => item.id}
+						renderItem={({ item }) => (
+							<SkillCard 
+								skill={item.name} 
+								onPress={() => handleRemoveSkill(item.id)}
+							/>
+						)}
 					/>
-				)}
-			/>
+				</>
+			)}
 		</View>
   )
 }
@@ -94,6 +101,11 @@ const styles = StyleSheet.create({
 		color: '#FFF',
 		fontSize: 24,
 		fontWeight: 'bold'
+	},
+	description: {
+		color: '#FFF',
+		fontSize: 20,
+		marginTop: 12,
 	},
 	input: {
 		backgroundColor: '#1F1E25',
